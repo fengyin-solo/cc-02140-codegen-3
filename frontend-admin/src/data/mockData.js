@@ -340,6 +340,251 @@ export const borrowRecords = [
 ]
 
 // ========================================
+// 采购供应商数据
+// ========================================
+export const suppliers = [
+  {
+    id: 1,
+    name: '新华书店总店',
+    contactName: '王经理',
+    contactPhone: '010-63978866',
+    address: '北京市西城区北礼士路135号',
+    cooperationDate: '2021-03-01'
+  },
+  {
+    id: 2,
+    name: '机械工业出版社',
+    contactName: '李发行',
+    contactPhone: '010-88379491',
+    address: '北京市西城区百万庄大街22号',
+    cooperationDate: '2020-06-15'
+  },
+  {
+    id: 3,
+    name: '中信出版集团',
+    contactName: '赵主管',
+    contactPhone: '010-52008080',
+    address: '北京市朝阳区惠新东街甲4号',
+    cooperationDate: '2022-01-10'
+  },
+  {
+    id: 4,
+    name: '人民邮电出版社',
+    contactName: '陈业务',
+    contactPhone: '010-81055410',
+    address: '北京市丰台区成寿寺路11号',
+    cooperationDate: '2021-09-20'
+  }
+]
+
+// ========================================
+// 采购入库单数据
+// 明细状态 status: pending 待验收 / partial 部分入库 / accepted 已入库 / rejected 已退回
+// 单据状态 status: pending 待验收 / accepting 验收中 / completed 已完成 / returned 已退回
+// ========================================
+export const inboundOrders = [
+  {
+    id: 1,
+    orderNo: 'PO202409001',
+    supplierId: 1,
+    supplierName: '新华书店总店',
+    contactName: '王经理',
+    contactPhone: '010-63978866',
+    orderDate: '2024-09-10',
+    expectArrivalDate: '2024-09-18',
+    warehouse: '主馆一号库',
+    remark: '秋季馆藏补充第一批',
+    status: 'pending',
+    createdAt: '2024-09-10 09:20:00',
+    items: [
+      {
+        id: 101,
+        bookId: 2,
+        isbn: '978-7-111-40701-0',
+        title: 'JavaScript高级程序设计',
+        author: 'Nicholas C. Zakas',
+        publisher: '机械工业出版社',
+        categoryId: 2,
+        categoryName: '科技工程',
+        price: 89.0,
+        expectQty: 10,
+        batchNo: 'XHSD-20240901',
+        status: 'pending',
+        acceptedQty: 0,
+        rejectedQty: 0,
+        actualQty: null,
+        remark: ''
+      },
+      {
+        id: 102,
+        bookId: 4,
+        isbn: '978-7-115-52808-3',
+        title: 'Vue.js设计与实现',
+        author: '霍春阳',
+        publisher: '人民邮电出版社',
+        categoryId: 2,
+        categoryName: '科技工程',
+        price: 72.0,
+        expectQty: 5,
+        batchNo: 'XHSD-20240902',
+        status: 'pending',
+        acceptedQty: 0,
+        rejectedQty: 0,
+        actualQty: null,
+        remark: ''
+      },
+      {
+        id: 103,
+        bookId: null,
+        isbn: '978-7-111-54493-9',
+        title: '深入理解计算机系统',
+        author: 'Randal E. Bryant',
+        publisher: '机械工业出版社',
+        categoryId: 2,
+        categoryName: '科技工程',
+        price: 139.0,
+        expectQty: 6,
+        batchNo: 'XHSD-20240903',
+        status: 'pending',
+        acceptedQty: 0,
+        rejectedQty: 0,
+        actualQty: null,
+        remark: '新书首次采购，验收时自动建档'
+      }
+    ]
+  },
+  {
+    id: 2,
+    orderNo: 'PO202409002',
+    supplierId: 2,
+    supplierName: '机械工业出版社',
+    contactName: '李发行',
+    contactPhone: '010-88379491',
+    orderDate: '2024-09-12',
+    expectArrivalDate: '2024-09-19',
+    warehouse: '主馆一号库',
+    remark: '含一条到货质检退回记录',
+    status: 'accepting',
+    createdAt: '2024-09-12 14:05:00',
+    items: [
+      {
+        id: 201,
+        bookId: 8,
+        isbn: '978-7-04-054321-6',
+        title: '高等数学',
+        author: '同济大学数学系',
+        publisher: '高等教育出版社',
+        categoryId: 6,
+        categoryName: '教育考试',
+        price: 38.5,
+        expectQty: 20,
+        batchNo: 'JXGY-20240905',
+        status: 'rejected',
+        acceptedQty: 0,
+        rejectedQty: 20,
+        actualQty: 0,
+        remark: '到货抽检封面破损、水渍，整批退回'
+      },
+      {
+        id: 202,
+        bookId: 5,
+        isbn: '978-7-101-14699-8',
+        title: '史记',
+        author: '司马迁',
+        publisher: '中华书局',
+        categoryId: 3,
+        categoryName: '历史传记',
+        price: 168.0,
+        expectQty: 4,
+        batchNo: 'JXGY-20240906',
+        status: 'pending',
+        acceptedQty: 0,
+        rejectedQty: 0,
+        actualQty: null,
+        remark: ''
+      }
+    ]
+  },
+  {
+    id: 3,
+    orderNo: 'PO202409003',
+    supplierId: 4,
+    supplierName: '人民邮电出版社',
+    contactName: '陈业务',
+    contactPhone: '010-81055410',
+    orderDate: '2024-09-15',
+    expectArrivalDate: '2024-09-22',
+    warehouse: '主馆二号库',
+    remark: '其中 JS高程 与 PO202409001 为同一供应商批次，用于重复入库校验',
+    status: 'pending',
+    createdAt: '2024-09-15 10:40:00',
+    items: [
+      {
+        id: 301,
+        bookId: 2,
+        isbn: '978-7-111-40701-0',
+        title: 'JavaScript高级程序设计',
+        author: 'Nicholas C. Zakas',
+        publisher: '机械工业出版社',
+        categoryId: 2,
+        categoryName: '科技工程',
+        price: 95.0,
+        expectQty: 3,
+        batchNo: 'XHSD-20240901',
+        status: 'pending',
+        acceptedQty: 0,
+        rejectedQty: 0,
+        actualQty: null,
+        remark: '批次号与 PO202409001 重复'
+      },
+      {
+        id: 302,
+        bookId: 6,
+        isbn: '978-7-111-57748-4',
+        title: '经济学原理',
+        author: '曼昆',
+        publisher: '机械工业出版社',
+        categoryId: 4,
+        categoryName: '经济管理',
+        price: 70.0,
+        expectQty: 10,
+        batchNo: 'RY-20240910',
+        status: 'pending',
+        acceptedQty: 0,
+        rejectedQty: 0,
+        actualQty: null,
+        remark: ''
+      }
+    ]
+  }
+]
+
+// ========================================
+// 验收记录数据
+// type: accepted 验收入库 / returned 退回 / note 补充记录
+// ========================================
+export const acceptanceRecords = [
+  {
+    id: 1,
+    orderId: 2,
+    orderNo: 'PO202409002',
+    itemId: 201,
+    bookId: 8,
+    isbn: '978-7-04-054321-6',
+    bookTitle: '高等数学',
+    batchNo: 'JXGY-20240905',
+    type: 'returned',
+    expectQty: 20,
+    actualQty: 20,
+    changeQty: 20,
+    acceptedQty: 0,
+    operator: '管理员',
+    remark: '到货抽检封面破损、水渍，整批退回供应商',
+    createdAt: '2024-09-19 11:30:00'
+  }
+]
+
+// ========================================
 // 测试用户账号
 // ========================================
 export const users = [

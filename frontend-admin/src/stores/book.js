@@ -119,12 +119,81 @@ export const useBookStore = defineStore('book', () => {
     return books.value.filter(book => book.categoryId === categoryId)
   }
 
+  // ========================================
+  // 采购入库联动：验收通过后同步可借库存
+  // ========================================
+
+  // 按 ISBN 查找既有图书
+  function getBookByIsbn(isbn) {
+    if (!isbn) return null
+    return books.value.find(book => book.isbn === isbn) || null
+  }
+
+  // 按入库明细查找或新建图书（新采购图书在验收通过后自动建档）
+  // 返回 { book, created }，兼容既有图书信息
+  function findOrCreateByInboundItem(item) {
+    let book = item.bookId ? getBookById(item.bookId) : null
+    let created = false
+
+    // bookId 失效时（如图书曾被删除），回退按 ISBN 匹配
+    if (!book) {
+      book = getBookByIsbn(item.isbn)
+    }
+
+    if (book) {
+      return { book, created: false }
+    }
+
+    const newId = books.value.length > 0
+      ? Math.max(...books.value.map(b => b.id)) + 1
+      : 1
+    const newBook = {
+      id: newId,
+      isbn: item.isbn,
+      title: item.title,
+      author: item.author || '',
+      publisher: item.publisher || '',
+      publishDate: '',
+      categoryId: item.categoryId ?? null,
+      categoryName: item.categoryName || '',
+      price: item.price ?? 0,
+      total: 0,
+      available: 0,
+      location: '',
+      cover: getDefaultCover(newId),
+      description: '采购入库验收后自动建档'
+    }
+    books.value.push(newBook)
+    created = true
+    return { book: newBook, created }
+  }
+
+  // 验收入库：total / available 同步增加，返回更新后的库存数
+  function addStock(bookId, qty) {
+    const count = Number(qty)
+    if (!count || count <= 0) return null
+    const index = books.value.findIndex(book => book.id === bookId)
+    if (index === -1) return null
+    const target = books.value[index]
+    const nextTotal = (Number(target.total) || 0) + count
+    const nextAvailable = (Number(target.available) || 0) + count
+    books.value[index] = {
+      ...target,
+      total: nextTotal,
+      available: nextAvailable
+    }
+    return { total: nextTotal, available: nextAvailable }
+  }
+
   return {
     books,
     loading,
     totalBooks,
     totalAvailable,
     getBookById,
+    getBookByIsbn,
+    findOrCreateByInboundItem,
+    addStock,
     addBook,
     updateBook,
     deleteBook,

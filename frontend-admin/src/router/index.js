@@ -37,6 +37,12 @@ const routes = [
         meta: { title: '借阅管理', icon: 'SwapOutlined' }
       },
       {
+        path: 'inbound',
+        name: 'Inbound',
+        component: () => import('@/views/inbound/InboundList.vue'),
+        meta: { title: '采购入库', icon: 'InboxOutlined' }
+      },
+      {
         path: 'categories',
         name: 'Categories',
         component: () => import('@/views/categories/CategoryList.vue'),
