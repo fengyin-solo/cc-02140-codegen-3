@@ -90,6 +90,7 @@ docker pull --platform linux/arm64 nginx:1.25-alpine
         │   ├── book.js         # 图书状态
         │   ├── reader.js       # 读者状态
         │   ├── borrow.js       # 借阅状态
+        │   ├── purchase.js     # 采购入库与验收状态
         │   └── category.js     # 分类状态
         ├── layouts/            # 布局组件
         │   └── MainLayout.vue  # 主布局
@@ -98,6 +99,9 @@ docker pull --platform linux/arm64 nginx:1.25-alpine
         │   ├── Dashboard.vue   # 首页概览
         │   ├── books/
         │   │   └── BookList.vue      # 图书管理
+        │   ├── purchase/
+        │   │   ├── PurchaseList.vue  # 采购入库与验收
+        │   │   └── ResultModal.vue   # 批量操作逐条结果
         │   ├── readers/
         │   │   └── ReaderList.vue    # 读者管理
         │   ├── borrow/
@@ -156,6 +160,16 @@ docker pull --platform linux/arm64 nginx:1.25-alpine
 ### 5. 分类管理 (Categories)
 - 分类卡片展示
 - 新增/编辑/删除分类
+
+### 6. 采购入库与验收 (Purchase)
+- 入库单维护：新增/删除入库单，维护供应商、供应商批次、采购数量、存放位置等
+- 批量验收入库：勾选多张待处理单据逐条验收，可逐条填写实收数量，留空按全部合格处理
+- 多选退回：支持多张单据批量退回剩余数量并填写退回原因
+- 逐条补充记录：对单张单据补充实收数量与验收备注，支持部分验收（剩余项保留待处理）
+- 逐条结果反馈：重复提交、数量不符（实收超量）、同一批次（ISBN+批次号）重复入库均逐条提示且不影响其他单据
+- 库存联动：验收通过后同步可借库存；已有图书库存累加，新品种自动建立馆藏档案（图书管理/借阅即时可见可借）
+- 状态防错配：以已收/已退数量为唯一事实来源在加载时归一化状态，刷新或重新进入页面状态不会错乱
+- 验收流水：每张单据保留完整的验收/退回时间线记录（含入库后库存快照）
 
 ---
 

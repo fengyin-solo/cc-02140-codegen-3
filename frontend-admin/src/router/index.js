@@ -25,6 +25,12 @@ const routes = [
         meta: { title: '图书管理', icon: 'BookOutlined' }
       },
       {
+        path: 'purchase',
+        name: 'Purchase',
+        component: () => import('@/views/purchase/PurchaseList.vue'),
+        meta: { title: '采购入库', icon: 'InboxOutlined' }
+      },
+      {
         path: 'readers',
         name: 'Readers',
         component: () => import('@/views/readers/ReaderList.vue'),

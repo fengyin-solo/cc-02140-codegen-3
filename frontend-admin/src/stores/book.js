@@ -78,6 +78,47 @@ export const useBookStore = defineStore('book', () => {
     return books.value.find(book => book.id === id)
   }
 
+  function getBookByIsbn(isbn) {
+    return books.value.find(book => String(book.isbn) === String(isbn))
+  }
+
+  // 采购验收入库联动：
+  // - 已有图书（按 ISBN 匹配）：total / available 同步累加，可借库存立即生效
+  // - 新品种：自动建立图书档案，初始库存即为本次入库数量，图书列表/首页统计自然兼容
+  function stockInByIsbn(isbn, quantity, bookInfo = {}) {
+    const qty = Number(quantity) || 0
+    const existing = getBookByIsbn(isbn)
+    if (existing) {
+      existing.total = Number(existing.total || 0) + qty
+      existing.available = Number(existing.available || 0) + qty
+      if (bookInfo.location && !existing.location) existing.location = bookInfo.location
+      existing.available = Math.min(existing.available, existing.total)
+      return { created: false, book: existing }
+    }
+
+    const newId = books.value.length > 0
+      ? Math.max(...books.value.map(b => b.id)) + 1
+      : 1
+    const newBook = {
+      id: newId,
+      isbn: String(isbn),
+      title: bookInfo.title || '未命名图书',
+      author: bookInfo.author || '',
+      publisher: bookInfo.publisher || '',
+      publishDate: bookInfo.publishDate || '',
+      categoryId: bookInfo.categoryId ?? null,
+      categoryName: bookInfo.categoryName || '',
+      price: bookInfo.price ?? 0,
+      total: qty,
+      available: qty,
+      location: bookInfo.location || '',
+      cover: getDefaultCover(newId),
+      description: bookInfo.description || '采购验收自动建档'
+    }
+    books.value.push(newBook)
+    return { created: true, book: newBook }
+  }
+
   function addBook(book) {
     const newId = books.value.length > 0
       ? Math.max(...books.value.map(b => b.id)) + 1
@@ -125,6 +166,8 @@ export const useBookStore = defineStore('book', () => {
     totalBooks,
     totalAvailable,
     getBookById,
+    getBookByIsbn,
+    stockInByIsbn,
     addBook,
     updateBook,
     deleteBook,

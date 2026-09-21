@@ -27,6 +27,10 @@
           <template #icon><BookOutlined /></template>
           <span>图书管理</span>
         </a-menu-item>
+        <a-menu-item key="purchase">
+          <template #icon><InboxOutlined /></template>
+          <span>采购入库</span>
+        </a-menu-item>
         <a-menu-item key="readers">
           <template #icon><UserOutlined /></template>
           <span>读者管理</span>
@@ -103,6 +107,7 @@ import {
   MenuUnfoldOutlined,
   DashboardOutlined,
   BookOutlined,
+  InboxOutlined,
   UserOutlined,
   SwapOutlined,
   AppstoreOutlined,
@@ -125,6 +130,7 @@ const currentTitle = computed(() => {
   const titles = {
     dashboard: '首页概览',
     books: '图书管理',
+    purchase: '采购入库',
     readers: '读者管理',
     borrow: '借阅管理',
     categories: '分类管理'

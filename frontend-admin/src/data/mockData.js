@@ -340,6 +340,156 @@ export const borrowRecords = [
 ]
 
 // ========================================
+// 采购入库单数据
+// status: pending 待验收 / partial 部分验收 / completed 已入库 / returned 已退回
+// ========================================
+export const purchaseOrders = [
+  {
+    id: 1,
+    orderNo: 'RK20240301001',
+    isbn: '978-7-115-52808-3',
+    title: 'Vue.js设计与实现',
+    author: '霍春阳',
+    publisher: '人民邮电出版社',
+    categoryId: 2,
+    categoryName: '科技工程',
+    price: 89.00,
+    supplier: '人民邮电出版社直供',
+    batchNo: 'P20240301',
+    quantity: 20,
+    receivedQuantity: 0,
+    returnedQuantity: 0,
+    status: 'pending',
+    location: 'B区-02-18',
+    orderDate: '2024-03-01',
+    acceptedDate: null,
+    remark: '春季馆藏补货',
+    records: []
+  },
+  {
+    id: 2,
+    orderNo: 'RK20240305002',
+    isbn: '978-7-111-40701-0',
+    title: 'JavaScript高级程序设计',
+    author: 'Nicholas C. Zakas',
+    publisher: '机械工业出版社',
+    categoryId: 2,
+    categoryName: '科技工程',
+    price: 129.00,
+    supplier: '机械工业出版社华东馆配',
+    batchNo: 'P20240305',
+    quantity: 15,
+    receivedQuantity: 0,
+    returnedQuantity: 0,
+    status: 'pending',
+    location: 'B区-02-15',
+    orderDate: '2024-03-05',
+    acceptedDate: null,
+    remark: '',
+    records: []
+  },
+  {
+    id: 3,
+    orderNo: 'RK20240308003',
+    isbn: '978-7-111-54493-7',
+    title: '深入理解计算机系统',
+    author: 'Randal E. Bryant',
+    publisher: '机械工业出版社',
+    categoryId: 2,
+    categoryName: '科技工程',
+    price: 139.00,
+    supplier: '新华书店总店',
+    batchNo: 'P20240308',
+    quantity: 10,
+    receivedQuantity: 0,
+    returnedQuantity: 0,
+    status: 'pending',
+    location: 'B区-02-21',
+    orderDate: '2024-03-08',
+    acceptedDate: null,
+    remark: '新增品种，验收通过后自动建立馆藏档案',
+    records: []
+  },
+  {
+    id: 4,
+    orderNo: 'RK20240310004',
+    isbn: '978-7-115-52808-3',
+    title: 'Vue.js设计与实现',
+    author: '霍春阳',
+    publisher: '人民邮电出版社',
+    categoryId: 2,
+    categoryName: '科技工程',
+    price: 89.00,
+    supplier: '高教图书专营',
+    batchNo: 'P20240301',
+    quantity: 5,
+    receivedQuantity: 0,
+    returnedQuantity: 0,
+    status: 'pending',
+    location: 'B区-02-18',
+    orderDate: '2024-03-10',
+    acceptedDate: null,
+    remark: '供应商重复配送的同批次图书，验收时应拦截',
+    records: []
+  },
+  {
+    id: 5,
+    orderNo: 'RK20240312005',
+    isbn: '978-7-02-008179-4',
+    title: '红楼梦',
+    author: '曹雪芹',
+    publisher: '人民文学出版社',
+    categoryId: 1,
+    categoryName: '文学小说',
+    price: 59.70,
+    supplier: '北京中关村图书大厦',
+    batchNo: 'P20240312',
+    quantity: 30,
+    receivedQuantity: 0,
+    returnedQuantity: 0,
+    status: 'pending',
+    location: 'A区-01-03',
+    orderDate: '2024-03-12',
+    acceptedDate: null,
+    remark: '',
+    records: []
+  },
+  {
+    id: 6,
+    orderNo: 'RK20240313006',
+    isbn: '978-7-04-054321-6',
+    title: '高等数学',
+    author: '同济大学数学系',
+    publisher: '高等教育出版社',
+    categoryId: 6,
+    categoryName: '教育考试',
+    price: 45.80,
+    supplier: '高等教育出版社馆配中心',
+    batchNo: 'P20240313',
+    quantity: 8,
+    receivedQuantity: 0,
+    returnedQuantity: 8,
+    status: 'returned',
+    location: 'F区-06-01',
+    orderDate: '2024-03-13',
+    acceptedDate: null,
+    remark: '到件外包装浸水破损',
+    records: [
+      {
+        id: 1,
+        time: '2024-03-14 10:22:31',
+        action: 'return',
+        quantity: 8,
+        note: '外包装浸水破损，整批退回供应商',
+        result: 'returned',
+        createdBook: false,
+        stockAfter: null
+      }
+    ]
+  }
+]
+
+// ========================================
 // 测试用户账号
 // ========================================
 export const users = [
